@@ -18,16 +18,24 @@ class EmailListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListView(
         children: [
           const SizedBox(height: 8),
           search_bar.SearchBar(currentUser: currentUser),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...List.generate(data.emails.length, (index) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: EmailWidget(),
+              padding: const EdgeInsets.only(bottom: 8),
+              child: EmailWidget(
+                email: data.emails[index],
+                onSelected: onSelected != null
+                    ? () {
+                        onSelected!(index);
+                      }
+                    : null,
+                isSelected: selectedIndex == index,
+              ),
             );
           })
         ],
